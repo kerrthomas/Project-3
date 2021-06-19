@@ -8,7 +8,7 @@ import {
     Link,
 } from "react-router-dom";
 
-import "./style";
+// import "./style";
 function Nav() {
     return (
         <>
