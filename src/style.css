@@ -1,0 +1,45 @@
+body {
+    background-color: aqua;
+    text-align: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  #NavBar {
+    color: white;
+    background-color: navy;
+    border: solid navy 1px;
+  }
+  
+  a {
+    color: white;
+  }
+  
+  a:hover {
+    color: lightgray;
+  }
+  
+  .Form {
+    background-color: white;
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+  
+  .Header{
+    font-size: 3em;
+    font-weight: bold;
+  }
+  
+  button {
+    background-color: rgb(14, 201, 14);
+    color: white;
+    border: solid rgb(14, 201, 14) 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+    height: 20px;
+    width: 75px;
+  }
+
+  .select {
+    color: gray;
+    background-color: rgb(10, 2, 10);
+    border: solid rgb(10, 2, 10) 5px;
+  }
