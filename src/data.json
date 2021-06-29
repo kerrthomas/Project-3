@@ -1,0 +1,13 @@
+[{
+    "id": 1
+    "task": "Study React"
+    "complete": true
+}, {
+    "id": 2
+    "task": "Go Shopping"
+    "complete": false
+}, {
+    "id": 3
+    "task": "Do Laundry"
+    "complete": true
+}]

@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { render } from "react-dom";
-
+import data from "./data.json";
+import ToDoList from "./ToDoList";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link,
+    NavLink,
 } from "react-router-dom";
 
-import "style";
+import "./style.css";
 function Nav() {
     return (
         <>
@@ -40,19 +42,13 @@ function About() {
   </div>
 }
 
-function Todo() {
-  const [tasks, setTasks] = useState( [{txt: 'Study React', completed: true}, {txt: 'Go Shopping', completed: false}, {txt: 'Do Laundry', completed: true}]);
-  
+function Todo() { 
   return <div class="Form"><div class="Header"><p>Todo List</p></div>
+  const [tasks, setTasks] = useState(data);
+  <ToDoList toDoList={toDoList}/>
   <input type="text" placeholder="Add a task" id="task"></input>
-  <button onClick="addTask()">Add Task</button>
+  <button onClick={addTask}>Add Task</button>
   </div>
-
-function addTask() {
-  document.getElementById("task");
-  [tasks, setTasks] += {task};
-}
-
 }
 
 function Contact() {
