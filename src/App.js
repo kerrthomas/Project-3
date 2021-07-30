@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { render } from "react-dom";
-import data from "./data.json";
-import ToDoList from "./ToDoList";
+import "./index.js";
+import "./index.css";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link,
-    NavLink,
-} from "react-router-dom";
+  } from "react-router-dom";
 
-import "./style.css";
 function Nav() {
     return (
         <>
@@ -44,10 +42,6 @@ function About() {
 
 function Todo() { 
   return <div class="Form"><div class="Header"><p>Todo List</p></div>
-  const [tasks, setTasks] = useState(data);
-  <ToDoList toDoList={toDoList}/>
-  <input type="text" placeholder="Add a task" id="task"></input>
-  <button onClick={addTask}>Add Task</button>
   </div>
 }
 
