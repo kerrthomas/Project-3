@@ -76,6 +76,10 @@ function Users() {
   return <h2>I am on the Users page</h2>;
 }
 
+function Contact() {
+  return <h2>I am on the Contact page</h2>;
+}
+
 function App() {
 
   const [counter, setCounter] = useState(0);
@@ -122,7 +126,7 @@ function App() {
         <Router>
           <div>
             <nav>
-            <div id="NavBar"><Link to="/about">About</Link> | <Link to="/todo">Todos</Link> | <Link to="/contact/us">Contact</Link></div>
+            <div id="NavBar"><Link to="/about">About</Link>|<Link to="/todo">Todos</Link>|<Link to="/contact/us">Contact</Link></div>
             </nav>
 
             <br/>
