@@ -1,6 +1,6 @@
 import './App.css';
-
 import React, {useState} from 'react'
+import { useForm } from '@formspree/react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,19 +8,12 @@ import {
   Link
 } from "react-router-dom";
 
-// useState, useEffect
-// React Hooks
-
 function Home() {
   return <h1>Welcome to the Todo List!</h1>;
 }
 
 function About() {
-  return <h2>I am on the About page</h2>;
-}
-
-function Users() {
-  return <h2>I am on the Users page</h2>;
+  return <h2>This website will help you manage what tasks you need to do.<br/>Go to the Todo page and type a task you want to finish.<br/>Once you finish a task, click the Complete button next to the task.<br/>If you have any questions about the website, feel free to contact us on the Contact page.</h2>;
 }
 
 function Todo() {
@@ -40,26 +33,63 @@ function Todo() {
     setCurrentFilter('all')
   };
 
-  const showCompleted = async () => {
-    setCurrentFilter('completed')
-
+  const showIncomplete = async () => {
+    setCurrentFilter('incomplete')
   };
 
-  const deleteItem = async (id) => {
-    let index = setItems.findIndex(item => item.id === id)
-    setItems.splice(index)
+  const showCompleted = async () => {
+    setCurrentFilter('completed')
+  };
+
+  const deleteItem = async (index) => {
+    console.log('id is', index)
+    let itms = []
+    items.map((itm, ix) => {
+      if(index !== ix){
+        itms.push(itm)
+      }
+    })
+
+    setItems([...itms])
+    //let index = items.findIndex(item => item.id === id)
+    //console.log(index)
+    //items.splice(index)
     // remove an element from items array using the index value.About
     // HINT: lookup slice array javascript
 
   }
 
+  const setComplete = async (index) => {
+    console.log('id is', index)
+    let itemsCopy = items
+    itemsCopy.map((item, ix) => {
+      if(index === ix){
+        return item.completed = true
+      }
+    })
+
+    setItems([...itemsCopy])
+  }
+
+  const setIncomplete = async (index) => {
+    console.log('id is', index)
+    let itemsCopy = items
+    itemsCopy.map((item, ix) => {
+      if(index === ix){
+        return item.completed = false
+      }
+    })
+
+    setItems([...itemsCopy])
+  }
+
   return (
     <div>
-      Todo List
+      <h2>Todo List</h2>
       <br/>
 
       <input type="text" onChange={(event) => setInputText(event.currentTarget.value)} className={'border'}/>
-      <button type="button" class="btn btn-primary" onClick={addItem}>Submit</button>
+      <button type="button" className="btn btn-primary" onClick={addItem}>Submit</button>
 
       <ul>
         {items.map((item, index) => {
@@ -67,31 +97,52 @@ function Todo() {
             if(item.completed){
               return <li key={index}>
                 {item.txt}
-                &nbsp;<button type="button" class="btn btn-danger" onClick={() => deleteItem(index)}>Delete</button>
+                &nbsp;&nbsp;<button type="button" className="btn btn-danger" onClick={() => deleteItem(index)}>Delete</button>
+                <button type="button" className="btn btn-secondary" onClick={() => setIncomplete(index)}>Incomplete</button>
               </li>
             }
           } else if(currentFilter === 'all'){
             return <li key={index}>
               {item.txt}
-              &nbsp;<button type="button" class="btn btn-danger" onClick={() => deleteItem(index)}>Delete</button>
+              &nbsp;&nbsp;<button type="button" className="btn btn-danger" onClick={() => deleteItem(index)}>Delete</button>
+              {item.completed ? <button type="button" className="btn btn-secondary" onClick={() => setIncomplete(index)}>Incomplete</button> : <button type="button" className="btn btn-secondary" onClick={() => setComplete(index)}>Completed</button>}
             </li>
+          } else {
+            if(item.completed === false){
+            return <li key={index}>
+              {item.txt}
+              &nbsp;&nbsp;<button type="button" className="btn btn-danger" onClick={() => deleteItem(index)}>Delete</button>
+              <button type="button" className="btn btn-secondary" onClick={() => setComplete(index)}>Completed</button>
+            </li>
+            }
           }
-
         })}
-
       </ul>
 
 <br/>
 <br/>
-      <button onClick={showAll}>All</button>&nbsp;&nbsp;
+      <button onClick={showAll}>All</button>&nbsp;&nbsp;&nbsp;
       <button onClick={showCompleted}>Completed</button>
-
+      <button onClick={showIncomplete}>Incomplete</button>
     </div>
 );
 }
 
 function Contact() {
-  return <h2>I am on the Contact page</h2>;
+  const [state, handleSubmit] = useForm("xpzkokjv");
+  if (state.succeeded) {
+      return <p>Thank you for notifying us!</p>;
+  }
+  return (
+  <form id="ContactForm" onSubmit={handleSubmit}>
+    <div>Enter your first name: <input type="text" id="fName" required></input></div>
+    <div>Enter your last name: <input type="text" id="lName" required></input></div>
+    <div>Enter your email: <input type="email" id="email" required></input></div>
+    <div>What would you like to notify us about?</div>
+    <div><textarea id="info" required></textarea></div>
+    <div><button type="submit" disabled={state.submitting} className="btn btn-primary">Submit</button></div>
+  </form>
+  )
 }
 
 function App() {
@@ -114,9 +165,6 @@ function App() {
             <Switch>
               <Route path="/about">
                 <About />
-              </Route>
-              <Route path="/users">
-                <Users />
               </Route>
               <Route path="/todo">
                 <Todo />
